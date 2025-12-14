@@ -1,4 +1,4 @@
-#### **Cloud Garden (Succulent-as-a-Service)**
+### **Cloud Garden (Succulent-as-a-Service)**
 
 ###### **A Cloud-Native Simulation of Resource Lifecycle Management**
 
@@ -34,7 +34,7 @@ This project follows a Single-Deployment Unit pattern:
 
 
 
-**Teck Stack**
+**Tech Stack**
 
 * **Frontend**: React, CSS Grid, Axios
 * **Backend**: Java, Spring Boot, Spring Scheduler
