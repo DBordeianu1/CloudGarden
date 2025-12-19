@@ -12,7 +12,7 @@ Cloud Garden is a full-stack application that gamifies the concept of "Day 2 Ope
 
 
 
-It bridges the gap between my interest in plants and my desire to understand **Cloud Resource Management**. In this application, a "Succulent" is not just a plant, it is a mock service with state, health metrics, and lifecycle requirements.
+It bridges the gap between my interest in plants and my desire to understand **Cloud Resource Management**. In this application, a "Succulent" is not just a plant, it is a mock service with state, health metric, and lifecycle requirements.
 
 
 
