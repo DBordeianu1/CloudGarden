@@ -59,12 +59,15 @@ public class SucculentService {
         Succulent succulent = succulentRepository.findById(id)
             .orElseThrow(() -> new RuntimeException("Succulent not found with id: " + id));
 
-        if (succulent.getStatus() == Succulent.Status.DEAD) {
-            throw new RuntimeException("Cannot water a dead succulent");
+        if (succulent.getStatus() == Succulent.Status.DEAD || succulent.getStatus() == Succulent.Status.ZOMBIE) {
+            //throw new RuntimeException("Cannot water a dead succulent");
+            //succulent can now be watered but will become a zombie
+            succulent.setStatus(Succulent.Status.ZOMBIE);
+            //water level is already at 0 and remains at 0
+        } else {
+            succulent.setStatus(Succulent.Status.HEALTHY);
+            succulent.setWaterLevel(100);
         }
-
-        succulent.setWaterLevel(100);
-        succulent.setStatus(Succulent.Status.HEALTHY);
 
         Succulent updated = succulentRepository.save(succulent);
         log.info("Succulent watered successfully. Water level restored to 100");
@@ -92,6 +95,9 @@ public class SucculentService {
             .findByStatusNot(Succulent.Status.DEAD);
 
         for (Succulent succulent : aliveSucculents) {
+            if (succulent.getStatus()==Succulent.Status.ZOMBIE){
+                continue; //a zombie's plant state always remains at 0
+            }
             int currentWaterLevel = succulent.getWaterLevel();
             int newWaterLevel = Math.max(0, currentWaterLevel - WATER_DECAY_RATE);
 
