@@ -31,6 +31,9 @@ public class Succulent {
     @Column(nullable = false)
     private Status status;
 
+    @Column(nullable = false)
+    private Integer responseTimeMS;
+
     @PrePersist
     protected void onCreate() {
         if (status == null) {
@@ -38,6 +41,9 @@ public class Succulent {
         }
         if (waterLevel == null) {
             waterLevel = 100;
+        }
+        if (responseTimeMS == null){
+            responseTimeMS = 50;
         }
     }
 

@@ -15,6 +15,7 @@ public class SucculentResponse {
     private String type;
     private Integer waterLevel;
     private String status;
+    private Integer responseTimeMS;
 
     public static SucculentResponse fromEntity(Succulent succulent) {
         return new SucculentResponse(
@@ -22,7 +23,8 @@ public class SucculentResponse {
             succulent.getName(),
             succulent.getType(),
             succulent.getWaterLevel(),
-            succulent.getStatus().name()
+            succulent.getStatus().name(),
+            succulent.getResponseTimeMS()
         );
     }
 }

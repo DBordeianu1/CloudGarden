@@ -53,6 +53,6 @@ Each feature is designed to map to real-world concept in Event Mesh management:
 | **Planting a new Succulent** | **Provisioning:** Instantiating a new service instance via API. |
 | **Watering the Plant** | **Day 2 Ops:** Performing maintenance to reset TTL/Health checks. |
 | **The "Thirst" Scheduler** | **Background Worker:** A cron job simulating resource consumption/decay. |
-| **Wilting/Dead States** | **Observability:** Visualizing service degradation on the dashboard. |
+| **Wilting/Dead/Zombie States** | **Observability:** Visualizing service degradation on the dashboard. |
 | **Kubernetes Deployment** | **Self-Healing:** Testing pod resilience and orchestration. |
 

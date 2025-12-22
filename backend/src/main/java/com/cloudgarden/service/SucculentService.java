@@ -64,9 +64,11 @@ public class SucculentService {
             //succulent can now be watered but will become a zombie
             succulent.setStatus(Succulent.Status.ZOMBIE);
             //water level is already at 0 and remains at 0
+            succulent.setResponseTimeMS(3500);
         } else {
             succulent.setStatus(Succulent.Status.HEALTHY);
             succulent.setWaterLevel(100);
+            succulent.setResponseTimeMS(50);
         }
 
         Succulent updated = succulentRepository.save(succulent);
@@ -96,7 +98,7 @@ public class SucculentService {
 
         for (Succulent succulent : aliveSucculents) {
             if (succulent.getStatus()==Succulent.Status.ZOMBIE){
-                continue; //a zombie's plant state always remains at 0
+                continue; //a zombie's plant state always stays at 0
             }
             int currentWaterLevel = succulent.getWaterLevel();
             int newWaterLevel = Math.max(0, currentWaterLevel - WATER_DECAY_RATE);
@@ -105,12 +107,15 @@ public class SucculentService {
 
             if (newWaterLevel == 0) {
                 succulent.setStatus(Succulent.Status.DEAD);
+                succulent.setResponseTimeMS(120);
                 log.warn("Succulent {} has died", succulent.getName());
             } else if (newWaterLevel < WILTING_THRESHOLD) {
                 succulent.setStatus(Succulent.Status.WILTING);
+                succulent.setResponseTimeMS(850);
                 log.warn("Succulent {} is wilting ({}% water)", succulent.getName(), newWaterLevel);
             } else {
                 succulent.setStatus(Succulent.Status.HEALTHY);
+                succulent.setResponseTimeMS(50);
             }
 
             succulentRepository.save(succulent);
