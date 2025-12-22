@@ -123,4 +123,25 @@ public class SucculentService {
 
         log.debug("Water level update completed");
     }
+
+    @Transactional(readOnly = true)
+    public void simulateResponseTime(int milliseconds){
+        try{
+            Thread.sleep(milliseconds);
+        } catch(InterruptedException e){
+            Thread.currentThread().interrupt();
+        }
+    }
+
+    @Transactional(readOnly = true)
+    public int calculateMedian(List<SucculentResponse> succulents){
+        if (succulents.isEmpty()){
+            return 0;
+        }
+        List<Integer> responseTimes=succulents.stream()
+                                        .map(SucculentResponse::getResponseTimeMS)
+                                        .sorted().collect(Collectors.toList());
+        int size=responseTimes.size();
+        return responseTimes.get((size-1)/2);
+    }
 }
