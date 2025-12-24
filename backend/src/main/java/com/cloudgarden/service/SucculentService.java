@@ -1,6 +1,8 @@
 package com.cloudgarden.service;
 
 import com.cloudgarden.dto.SucculentRequest;
+import com.cloudgarden.dto.NameRequest;
+import com.cloudgarden.dto.TypeRequest;
 import com.cloudgarden.dto.SucculentResponse;
 import com.cloudgarden.model.Succulent;
 import com.cloudgarden.repository.SucculentRepository;
@@ -143,5 +145,69 @@ public class SucculentService {
                                         .sorted().collect(Collectors.toList());
         int size=responseTimes.size();
         return responseTimes.get((size-1)/2);
+    }
+
+    @Transactional
+    public SucculentResponse updateName(Long id, NameRequest request){
+        Succulent succulent = succulentRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Succulent not found with id: " + id));
+        if (request.getName().trim().isEmpty()){
+            log.info("Succulent name update failed for id {}. Name cannot be empty", id);
+        }
+        else if(request.getName().trim().equals(succulent.getName())){
+            log.info("Succulent name update skipped for id {}. New name: {}, is identical to current name", 
+            id, succulent.getName());
+        }
+        else{
+            succulent.setName(request.getName().trim());
+            log.info("Succulent name updated successfully");
+        }
+        Succulent updated = succulentRepository.save(succulent);
+        return SucculentResponse.fromEntity(updated);
+    }
+
+    @Transactional
+    public SucculentResponse updateType(Long id, TypeRequest request){
+        Succulent succulent = succulentRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Succulent not found with id: " + id));
+        if (request.getType().trim().isEmpty()){
+            log.info("Succulent type update failed for id {}. Type cannot be empty", id);
+        }
+        else if(request.getType().trim().equals(succulent.getType())){
+            log.info("Succulent type update skipped for id {}. New type: {}, is identical to current type", 
+            id, succulent.getType());
+        }
+        else{
+            succulent.setType(request.getType().trim());
+            log.info("Succulent type updated successfully");
+        }
+        Succulent updated = succulentRepository.save(succulent);
+        return SucculentResponse.fromEntity(updated);
+    }
+
+    @Transactional
+    public SucculentResponse updateSucculent(Long id, SucculentRequest request){
+        Succulent succulent = succulentRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Succulent not found with id: " + id));
+        if (request.getType().trim().isEmpty() && request.getName().trim().isEmpty()){
+            log.info("Succulent update failed for id {}. Name and type cannot be empty", id);
+        }
+        else if(request.getType().trim().isEmpty() && !request.getName().trim().isEmpty()){
+            log.info("Succulent update failed for id {}. Type cannot be empty", id);
+        }
+        else if(!request.getType().trim().isEmpty() && request.getName().trim().isEmpty()){
+            log.info("Succulent update failed for id {}. Name cannot be empty", id);
+        }
+        else if(request.getType().trim().equals(succulent.getType()) && request.getName().trim().equals(succulent.getName())){
+            log.info("Succulent update skipped for id {}. New name: {}, is identical to current name and new type: {}, is identical to current type", 
+            id, succulent.getName(), succulent.getType());
+        }
+        else{
+            succulent.setName(request.getName().trim());
+            succulent.setType(request.getType().trim());
+            log.info("Succulent updated successfully");
+        }
+        Succulent updated = succulentRepository.save(succulent);
+        return SucculentResponse.fromEntity(updated);
     }
 }

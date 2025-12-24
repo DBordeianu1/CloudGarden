@@ -1,6 +1,8 @@
 package com.cloudgarden.controller;
 
 import com.cloudgarden.dto.SucculentRequest;
+import com.cloudgarden.dto.NameRequest;
+import com.cloudgarden.dto.TypeRequest;
 import com.cloudgarden.dto.SucculentResponse;
 import com.cloudgarden.service.SucculentService;
 import jakarta.validation.Valid;
@@ -10,6 +12,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+
+
 
 @RestController
 @RequestMapping("/api/plants")
@@ -42,4 +50,26 @@ public class SucculentController {
         succulentService.simulateResponseTime(responseTime);
         return ResponseEntity.ok(response);
     }
+
+    @PutMapping("/{id}/name")
+    public ResponseEntity<SucculentResponse> changeName(
+            @PathVariable Long id, @Valid @RequestBody NameRequest request) {
+        SucculentResponse response = succulentService.updateName(id, request);
+        return ResponseEntity.ok(response);
+    }
+
+    @PutMapping("/{id}/type")
+    public ResponseEntity<SucculentResponse> changeType(
+            @PathVariable Long id, @Valid @RequestBody TypeRequest request) {
+        SucculentResponse response = succulentService.updateType(id, request);
+        return ResponseEntity.ok(response);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<SucculentResponse> changeSucculent(
+            @PathVariable Long id, @Valid @RequestBody SucculentRequest request) {
+        SucculentResponse response = succulentService.updateSucculent(id, request);
+        return ResponseEntity.ok(response);
+    }
+    
 }
