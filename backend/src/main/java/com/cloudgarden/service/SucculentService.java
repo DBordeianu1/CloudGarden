@@ -81,7 +81,7 @@ public class SucculentService {
 
     @Transactional
     public void deleteSucculent(Long id) {
-        log.info("Removing succulent with ID: {}", id);
+        log.info("Removing succulent with id: {}", id);
 
         if (!succulentRepository.existsById(id)) {
             throw new RuntimeException("Succulent not found with id: " + id);

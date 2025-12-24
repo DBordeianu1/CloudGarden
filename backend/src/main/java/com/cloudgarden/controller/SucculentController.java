@@ -12,10 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 
 
 
@@ -27,6 +23,9 @@ public class SucculentController {
 
     private final SucculentService succulentService;
 
+
+    //GET endpoints
+
     @GetMapping
     public ResponseEntity<List<SucculentResponse>> getAllPlants() {
         List<SucculentResponse> plants = succulentService.getAllSucculents();
@@ -34,6 +33,9 @@ public class SucculentController {
         succulentService.simulateResponseTime(responseTime);
         return ResponseEntity.ok(plants);
     }
+    
+
+    //POST endpoints
 
     @PostMapping
     public ResponseEntity<SucculentResponse> plantNew(
@@ -50,6 +52,8 @@ public class SucculentController {
         succulentService.simulateResponseTime(responseTime);
         return ResponseEntity.ok(response);
     }
+    
+    //PUT endpoints
 
     @PutMapping("/{id}/name")
     public ResponseEntity<SucculentResponse> changeName(
@@ -70,6 +74,17 @@ public class SucculentController {
             @PathVariable Long id, @Valid @RequestBody SucculentRequest request) {
         SucculentResponse response = succulentService.updateSucculent(id, request);
         return ResponseEntity.ok(response);
+    }
+    
+
+    //DELETE endpoints
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteSucculentWithId(@PathVariable Long id){
+        //SucculentResponse response = succulentService.getSucculentById(id);
+        succulentService.deleteSucculent(id);
+        return ResponseEntity.noContent().build(); //returns 204 status code: standard RESTful response for successful deletion
+        //return ResponseEntity.ok(response); //return type in this case would be: ResponseEntity<SucculentResponse>
     }
     
 }
