@@ -59,6 +59,8 @@ public class SucculentController {
     public ResponseEntity<SucculentResponse> changeName(
             @PathVariable Long id, @Valid @RequestBody NameRequest request) {
         SucculentResponse response = succulentService.updateName(id, request);
+        int responseTime=succulentService.getSucculentById(id).getResponseTimeMS();
+        succulentService.simulateResponseTime(responseTime);
         return ResponseEntity.ok(response);
     }
 
@@ -66,6 +68,8 @@ public class SucculentController {
     public ResponseEntity<SucculentResponse> changeType(
             @PathVariable Long id, @Valid @RequestBody TypeRequest request) {
         SucculentResponse response = succulentService.updateType(id, request);
+        int responseTime=succulentService.getSucculentById(id).getResponseTimeMS();
+        succulentService.simulateResponseTime(responseTime);
         return ResponseEntity.ok(response);
     }
 
@@ -73,6 +77,8 @@ public class SucculentController {
     public ResponseEntity<SucculentResponse> changeSucculent(
             @PathVariable Long id, @Valid @RequestBody SucculentRequest request) {
         SucculentResponse response = succulentService.updateSucculent(id, request);
+        int responseTime=succulentService.getSucculentById(id).getResponseTimeMS();
+        succulentService.simulateResponseTime(responseTime);
         return ResponseEntity.ok(response);
     }
     
@@ -82,6 +88,8 @@ public class SucculentController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteSucculentWithId(@PathVariable Long id){
         //SucculentResponse response = succulentService.getSucculentById(id);
+        int responseTime=succulentService.getSucculentById(id).getResponseTimeMS();
+        succulentService.simulateResponseTime(responseTime);
         succulentService.deleteSucculent(id);
         return ResponseEntity.noContent().build(); //returns 204 status code: standard RESTful response for successful deletion
         //return ResponseEntity.ok(response); //return type in this case would be: ResponseEntity<SucculentResponse>
