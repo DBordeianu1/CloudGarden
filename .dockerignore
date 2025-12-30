@@ -1,0 +1,50 @@
+# Root .dockerignore for CloudGarden
+
+# Git
+.git
+.gitignore
+.gitattributes
+
+# IDE
+.vscode
+.idea
+*.iml
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Documentation
+*.md
+!README.md
+
+# Docker files (avoid recursion)
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# CI/CD
+.github
+.gitlab-ci.yml
+
+# Frontend build artifacts (will be built in Docker)
+frontend/node_modules
+frontend/build
+frontend/dist
+frontend/.env*
+frontend/npm-debug.log*
+frontend/coverage
+
+# Backend build artifacts (will be built in Docker)
+backend/target
+backend/.mvn
+backend/mvnw
+backend/mvnw.cmd
+backend/*.log
+
+# Test files
+**/*test*
+**/*spec*
+**/coverage

@@ -1,0 +1,36 @@
+# Build outputs
+target/
+!target/*.jar
+*.class
+
+# Maven
+.mvn/
+mvnw
+mvnw.cmd
+
+# IDE
+.vscode
+.idea
+*.iml
+*.ipr
+*.iws
+.classpath
+.project
+.settings/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Git
+.git
+.gitignore
+
+# Logs
+*.log
+
+# Test files
+src/test/

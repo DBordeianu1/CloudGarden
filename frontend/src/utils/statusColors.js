@@ -6,7 +6,7 @@ export const getStatusColor = (status) => {
         text: 'text-green-800',
         border: 'border-green-500',
         gradient: 'from-green-600 to-green-400',
-        icon: '🌿',
+        icon: '🪴',
       };
     case 'WILTING':
       return {
@@ -14,7 +14,7 @@ export const getStatusColor = (status) => {
         text: 'text-yellow-800',
         border: 'border-yellow-500',
         gradient: 'from-yellow-600 to-yellow-400',
-        icon: '⚠️',
+        icon: '😓',
       };
     case 'DEAD':
       return {
@@ -22,7 +22,7 @@ export const getStatusColor = (status) => {
         text: 'text-stone-800',
         border: 'border-stone-500',
         gradient: 'from-stone-600 to-stone-400',
-        icon: '💀',
+        icon: '☠️',
       };
     case 'ZOMBIE':
       return {
@@ -30,7 +30,7 @@ export const getStatusColor = (status) => {
         text: 'text-purple-800',
         border: 'border-purple-500',
         gradient: 'from-purple-600 to-purple-400',
-        icon: '🧟',
+        icon: '🧟‍♂️',
       };
     default:
       return {

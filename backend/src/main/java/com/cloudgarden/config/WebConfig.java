@@ -7,12 +7,13 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer{
-    
+
     @Override
     public void addCorsMappings(@NonNull CorsRegistry registry){
+        // Allow all origins since nginx proxies requests (same-origin to browser)
         registry.addMapping("/api/**")
-                .allowedOrigins("http://localhost:3000")
-                .allowedMethods("GET", "POST", "PUT", "DELETE")
+                .allowedOrigins("*")
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("*");
     }
 }

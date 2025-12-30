@@ -25,7 +25,7 @@ const PlantCard = ({ plant, onWater, onEdit, onDelete }) => {
       case 'WILTING':
         return '😓';
       case 'DEAD':
-        return '💀';
+        return '☠️';
       case 'ZOMBIE':
         return '🧟‍♂️';
       default:
