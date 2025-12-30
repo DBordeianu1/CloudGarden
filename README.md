@@ -1,4 +1,4 @@
-### **Cloud Garden (Succulent-as-a-Service)**
+## **Cloud Garden (Succulent-as-a-Service)**
 
 ###### **A Cloud-Native Simulation of Resource Lifecycle Management**
 
