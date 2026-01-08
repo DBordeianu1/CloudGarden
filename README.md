@@ -1,6 +1,6 @@
 ## **Cloud Garden (Succulent-as-a-Service)**
 
-###### **A Cloud-Native Simulation of Resource Lifecycle Management**
+### **A Cloud-Native Simulation of Resource Lifecycle Management**
 
 
 
@@ -72,6 +72,8 @@ mvn clean package
 java -jar target/cloud-garden-backend-0.0.1-SNAPSHOT.jar
 ```
 The backend will start on `http://localhost:8080`
+- API URL: `http://localhost:8080/api/plants`
+- H2 Console: `http://localhost:8080/h2-console`
 
 #### Frontend
 ```powershell
