@@ -248,18 +248,18 @@ kubectl delete -f k8s-service.yaml
 
 ---
 
-### **UI Testing... for an agentic feel!**
+## **UI Testing... for an agentic feel!**
 
 This section covers two related but distinct things: 
-- using Claude Code to explore the CloudGarden UI via the Playwright MCP server
-- then translating similar interactions as an automated Playwright E2E test suite
+> 1) using Claude Code to explore the CloudGarden UI via the Playwright MCP server
+> 2) then translating similar interactions as an automated Playwright E2E test suite
 
 </details>
 
 <details>
 <summary>Playwright MCP (Agentic Exploration)</summary>
 
-> The [Playwright MCP server](https://github.com/microsoft/playwright-mcp) gives Claude a live browser it can control directly: clicking buttons, filling forms, reading page state (without any pre-written test scripts). 
+The [Playwright MCP server](https://github.com/microsoft/playwright-mcp) gives Claude Code a live browser it can control directly: clicking buttons, filling forms, reading page state (without any pre-written test scripts). 
 
 This was used to let Claude Code navigate CloudGarden the same way a user would: planting succulents, watering them, and observing status changes on the dashboard. Think of it as a test driven by natural language rather than code.
 
