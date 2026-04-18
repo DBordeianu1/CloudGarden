@@ -251,8 +251,8 @@ kubectl delete -f k8s-service.yaml
 ## **UI Testing... for an agentic feel!**
 
 This section covers two related but distinct things: 
-> 1) using Claude Code to explore the CloudGarden UI via the Playwright MCP server
-> 2) then translating similar interactions as an automated Playwright E2E test suite
+> 1) Using Claude Code to explore the CloudGarden UI via the Playwright MCP server
+> 2) Then translating similar interactions as an automated Playwright E2E test suite
 
 </details>
 
@@ -282,7 +282,7 @@ The Playwright test suite in `frontend/src/e2e/cloudgarden.spec.js` reproduces t
 
 Tests that require a plant to exist set it up directly via the backend API rather than through the UI: this keeps each test independent, so a UI bug in one flow does not cascade and break unrelated tests. Cleanup also happens via API, regardless of whether the test passed or failed.
 
-#### Prerequisite: CloudGarden is running locally as described [here](https://github.com/DBordeianu1/CloudGarden#running-locally-development)
+#### Prerequisite: CloudGarden is running locally as described [here](#running-locally-development)
 
 #### Running the Tests
 
