@@ -1,4 +1,4 @@
-## **Cloud Garden (Succulent-as-a-Service)**
+## **CloudGarden (Succulent-as-a-Service)**
 
 ### **A Cloud-Native Simulation of Resource Lifecycle Management**
 
@@ -232,6 +232,9 @@ minikube stop
 # View pod logs
 kubectl logs -l app=cloudgarden --all-containers=true --tail=100
 
+# Stream logs in real-time
+kubectl logs -l app=cloudgarden --all-containers=true -f
+
 # Check deployment status
 kubectl get deployments
 
@@ -243,3 +246,64 @@ kubectl delete -f k8s-deployment.yaml
 kubectl delete -f k8s-service.yaml
 ```
 
+---
+
+### **UI Testing... for an agentic feel!**
+
+This section covers two related but distinct things: 
+- using Claude Code to explore the CloudGarden UI via the Playwright MCP server
+- then translating similar interactions as an automated Playwright E2E test suite
+
+</details>
+
+<details>
+<summary>Playwright MCP (Agentic Exploration)</summary>
+
+> The [Playwright MCP server](https://github.com/microsoft/playwright-mcp) gives Claude a live browser it can control directly: clicking buttons, filling forms, reading page state (without any pre-written test scripts). 
+
+This was used to let Claude Code navigate CloudGarden the same way a user would: planting succulents, watering them, and observing status changes on the dashboard. Think of it as a test driven by natural language rather than code.
+
+</details>
+
+</details>
+
+<details>
+<summary>Automated E2E Tests</summary>
+
+The Playwright test suite in `frontend/src/e2e/cloudgarden.spec.js` reproduces those agentic interactions as repeatable, automated tests. It covers the core plant lifecycle:
+
+| Test | What it verifies |
+|------|-----------------|
+| Empty garden on load | Dashboard shows zero plants on a clean start |
+| Plant a new succulent | Modal flow works end-to-end and card appears with HEALTHY status |
+| Header stats after planting | "Total Plants" and "Healthy" counters update correctly |
+| Water a plant | Water button resets water level to 100% and status stays HEALTHY |
+| Delete a plant | Confirmation modal works and stats reset to zero |
+
+Tests that require a plant to exist set it up directly via the backend API rather than through the UI: this keeps each test independent, so a UI bug in one flow does not cascade and break unrelated tests. Cleanup also happens via API, regardless of whether the test passed or failed.
+
+#### Prerequisite: the backend is running locally as described [here](https://github.com/DBordeianu1/CloudGarden#running-locally-development)
+
+#### Running the Tests
+
+Install browser binaries once:
+```powershell
+cd frontend
+npx playwright install
+```
+
+Standard run (headed, results in terminal):
+```powershell
+npm run test:e2e
+```
+
+Interactive UI mode (recommended for watching tests execute step by step):
+```powershell
+npx playwright test --ui
+```
+
+Debug mode (step through one action at a time):
+```powershell
+npx playwright test --debug
+```
+</details>
