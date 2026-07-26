@@ -21,6 +21,9 @@ import java.util.Collections;
 import java.util.List;
 
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.anyLong;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 
@@ -162,5 +165,48 @@ class SucculentControllerTest {
 
         mockMvc.perform(delete("/api/plants/1"))
                .andExpect(status().isNoContent());
+    }
+
+    //Validation: these cover the @Valid wiring on the controller parameters.
+    //The constraints themselves are covered per DTO in com.cloudgarden.dto.
+
+    @Test
+    void shouldRejectPlantingWithBlankName() throws Exception {
+        mockMvc.perform(post("/api/plants")
+               .contentType(MediaType.APPLICATION_JSON)
+               .content("{\"name\":\"\",\"type\":\"Aloe\"}"))
+               .andExpect(status().isBadRequest());
+
+        verify(succulentService, never()).plantSucculent(any(SucculentRequest.class));
+    }
+
+    @Test
+    void shouldRejectNameChangeWithBlankName() throws Exception {
+        mockMvc.perform(put("/api/plants/1/name")
+               .contentType(MediaType.APPLICATION_JSON)
+               .content("{\"name\":\"   \"}"))
+               .andExpect(status().isBadRequest());
+
+        verify(succulentService, never()).updateName(anyLong(), any(NameRequest.class));
+    }
+
+    @Test
+    void shouldRejectTypeChangeWithBlankType() throws Exception {
+        mockMvc.perform(put("/api/plants/1/type")
+               .contentType(MediaType.APPLICATION_JSON)
+               .content("{\"type\":\"\"}"))
+               .andExpect(status().isBadRequest());
+
+        verify(succulentService, never()).updateType(anyLong(), any(TypeRequest.class));
+    }
+
+    @Test
+    void shouldRejectUpdateWithMissingFields() throws Exception {
+        mockMvc.perform(put("/api/plants/1")
+               .contentType(MediaType.APPLICATION_JSON)
+               .content("{}"))
+               .andExpect(status().isBadRequest());
+
+        verify(succulentService, never()).updateSucculent(anyLong(), any(SucculentRequest.class));
     }
 }
