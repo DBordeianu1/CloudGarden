@@ -3,7 +3,12 @@ name: Backend tests
 # No path filter on purpose: this check is meant to be a required status check, and a
 # filtered check that never runs leaves the PR waiting on it forever instead of passing.
 on:
+  # gates the merge
   pull_request:
+    branches: [main]
+  # verifies the squashed commit that actually lands: a squash merge creates a new SHA
+  # the pull_request run never saw, so without this main carries no check at all
+  push:
     branches: [main]
 
 jobs:
