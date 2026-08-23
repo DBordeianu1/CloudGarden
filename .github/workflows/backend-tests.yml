@@ -1,19 +1,14 @@
 name: Backend tests
 
+# No path filter on purpose: this check is meant to be a required status check, and a
+# filtered check that never runs leaves the PR waiting on it forever instead of passing.
 on:
   pull_request:
     branches: [main]
-    paths:
-      - 'backend/**'
-      - '.github/workflows/backend-tests.yml'
-  push:
-    branches: [main]
-    paths:
-      - 'backend/**'
-      - '.github/workflows/backend-tests.yml'
 
 jobs:
-  test:
+  backend-tests:
+    name: backend-tests
     runs-on: ubuntu-latest
 
     steps:
